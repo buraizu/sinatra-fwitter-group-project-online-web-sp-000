@@ -84,7 +84,7 @@ class ApplicationController < Sinatra::Base
 
   patch '/tweets/:id' do
     tweet = Tweet.find_by_id(params[:id])
-    if !params[:content].empty?
+    if !params[:content].empty? && tweet.user_id == session[:user_id]
       tweet.content = params[:content]
       tweet.save
       redirect "/tweets/#{tweet.id}"
